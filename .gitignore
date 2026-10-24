@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Dump of the original flash from one particular board; make your own with
+# `esptool read-flash` (see README) before overwriting yours
+backup/
+
+# Downloaded from micropython.org (see README)
+firmware/
+
+# Output saved from calibrate_touch.py
+cal*.txt
