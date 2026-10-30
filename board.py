@@ -11,9 +11,14 @@ from xpt2046 import Touch
 # --- Settings you may need to change ---------------------------------------
 
 # 0 puts the picture upright with the USB port on the right; 180 flips it for
-# a board mounted the other way round. 90/270 don't work on this panel: see
-# the README. Recalibrate touch after changing this.
-ROTATION = 0
+# a board mounted the other way round. Those two are for panels whose memory is
+# natively 320x240 (our first board). A portrait-native panel (240x320, our
+# second board) needs 270 (or 90): see the README. Recalibrate touch after
+# changing this.
+ROTATION = 270
+
+# True swaps red and blue. Our first board wants False, the second True.
+BGR = True
 
 TFT_BAUD = 20_000_000  # display SPI clock; drop to 10 MHz if you see speckles
 
@@ -72,7 +77,7 @@ def init_display(baudrate=TFT_BAUD):
     # swap: rotation=90 turns it into 240x320 and loses the right-hand third.
     spi = SPI(1, baudrate=baudrate, sck=Pin(TFT_SCK), mosi=Pin(TFT_MOSI), miso=Pin(TFT_MISO))
     display = Display(spi, cs=Pin(TFT_CS), dc=Pin(TFT_DC), rst=_NoPin(),
-                      width=WIDTH, height=HEIGHT, rotation=ROTATION, bgr=False)
+                      width=WIDTH, height=HEIGHT, rotation=ROTATION, bgr=BGR)
     backlight(True)
     return display
 
